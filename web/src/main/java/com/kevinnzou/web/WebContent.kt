@@ -1,3 +1,5 @@
+package com.kevinnzou.web
+
 public sealed class WebContent {
     public data class Url(
         val url: String,

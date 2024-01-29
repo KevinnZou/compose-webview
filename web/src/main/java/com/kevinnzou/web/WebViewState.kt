@@ -1,3 +1,5 @@
+package com.kevinnzou.web
+
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.webkit.WebView

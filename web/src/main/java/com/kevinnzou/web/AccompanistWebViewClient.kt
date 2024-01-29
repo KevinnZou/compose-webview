@@ -1,8 +1,5 @@
 package com.kevinnzou.web
 
-import WebViewError
-import WebViewNavigator
-import WebViewState
 import android.graphics.Bitmap
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest

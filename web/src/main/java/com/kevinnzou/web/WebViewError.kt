@@ -1,3 +1,5 @@
+package com.kevinnzou.web
+
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
 import androidx.compose.runtime.Immutable

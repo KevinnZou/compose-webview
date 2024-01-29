@@ -1,6 +1,5 @@
 package com.kevinnzou.web
 
-import WebViewState
 import android.graphics.Bitmap
 import android.webkit.WebChromeClient
 import android.webkit.WebView

@@ -1,3 +1,5 @@
+package com.kevinnzou.web
+
 import android.os.Bundle
 import android.webkit.WebView
 import androidx.compose.runtime.Composable

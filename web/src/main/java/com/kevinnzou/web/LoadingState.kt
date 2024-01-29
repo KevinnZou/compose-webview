@@ -1,3 +1,4 @@
+package com.kevinnzou.web
 
 /**
  * Sealed class for constraining possible loading states.
