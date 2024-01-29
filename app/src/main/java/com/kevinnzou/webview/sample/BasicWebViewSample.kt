@@ -62,7 +62,7 @@ import com.kevinnzou.web.rememberWebViewState
 import com.kevinnzou.webview.ui.theme.ComposewebviewTheme
 
 class BasicWebViewSample : ComponentActivity() {
-    val initialUrl = "https://google.com"
+    val initialUrl = "https://github.com/KevinnZou/compose-webview"
 
     @OptIn(ExperimentalMaterial3Api::class)
     @SuppressLint("SetJavaScriptEnabled")
