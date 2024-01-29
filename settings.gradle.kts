@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "compose-webview"
 include(":app")
- 
+include(":web")
