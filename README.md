@@ -33,7 +33,7 @@ repositories {
 }
 
 dependencies {
-    implementation "io.github.KevinnZou:compose-webview:0.33.3"
+    implementation "io.github.KevinnZou:compose-webview:0.33.4"
 }
 ```
 
