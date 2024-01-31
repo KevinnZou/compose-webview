@@ -4,7 +4,7 @@
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.kevinnzou/compose-webview.svg)](https://search.maven.org/artifact/io.github.kevinnzou/compose-webview)
 ![badge-android](http://img.shields.io/badge/platform-android-6EDB8D.svg?style=flat)
 
-<img src="media/cw-logo.jpeg" height="400">
+<img src="media/cw-logo.jpeg" height="300">
 
 According to the [official documentation](https://medium.com/androiddevelopers/an-update-on-jetpack-compose-accompanist-libraries-august-2023-ac4cbbf059f1) updated on August 2023,
 Jetpack Compose Accompanist library decided to deprecate the Web library with no replacement.
