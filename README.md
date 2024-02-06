@@ -26,6 +26,36 @@ WebView(state)
 ```
 This will display a WebView in your Compose layout that shows the URL provided.
 
+There is a larger sample in the sample app which can be found [here](https://github.com/KevinnZou/compose-webview/blob/main/app/src/main/java/com/kevinnzou/webview/sample/BasicWebViewSample.kt). This sample also shows how to show a loading state.
+
+## WebView settings including JavaScript
+
+By default, JavaScript is disabled in the WebView. To enable it or any other settings you can use the onCreated callback.
+```kotlin
+WebView(
+    state = webViewState,
+    onCreated = { it.settings.javaScriptEnabled = true }
+)
+```
+
+## Capturing back presses
+By default, the WebView will capture back presses/swipes when relevant and navigate the WebView back. This can be disabled via the parameter on the Composable.
+```kotlin
+WebView(
+    ...
+    captureBackPresses = false
+)
+```
+
+## Using a subclass of WebView
+If you want to use a subclass of WebView, or simply require more control over its instantiation, you can provide a factory.
+```kotlin
+WebView(
+    ...
+    factory = { context -> CustomWebView(context) }
+)
+```
+
 ## Download
 
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.kevinnzou/compose-webview.svg)](https://search.maven.org/artifact/io.github.kevinnzou/compose-webview)
