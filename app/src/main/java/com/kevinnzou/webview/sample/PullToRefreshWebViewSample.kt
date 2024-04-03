@@ -7,7 +7,10 @@ import android.util.Log
 import android.webkit.WebView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -42,6 +45,7 @@ class PullToRefreshWebViewSample : ComponentActivity() {
                 var refreshing by remember { mutableStateOf(false) }
                 LaunchedEffect(refreshing) {
                     if (refreshing) {
+                        navigator.reload()
                         delay(1200)
                         refreshing = false
                     }
@@ -51,30 +55,34 @@ class PullToRefreshWebViewSample : ComponentActivity() {
                     state = rememberPullToRefreshState(isRefreshing = refreshing),
                     onRefresh = { refreshing = true }
                 ) {
-                    // A custom WebViewClient and WebChromeClient can be provided via subclassing
-                    val webClient = remember {
-                        object : AccompanistWebViewClient() {
-                            override fun onPageStarted(
-                                view: WebView,
-                                url: String?,
-                                favicon: Bitmap?
-                            ) {
-                                super.onPageStarted(view, url, favicon)
-                                Log.d("Accompanist WebView", "Page started loading for $url")
+                    Column(
+                        modifier = Modifier.verticalScroll(state = rememberScrollState())
+                    ) {
+                        // A custom WebViewClient and WebChromeClient can be provided via subclassing
+                        val webClient = remember {
+                            object : AccompanistWebViewClient() {
+                                override fun onPageStarted(
+                                    view: WebView,
+                                    url: String?,
+                                    favicon: Bitmap?
+                                ) {
+                                    super.onPageStarted(view, url, favicon)
+                                    Log.d("Accompanist WebView", "Page started loading for $url")
+                                }
                             }
                         }
-                    }
 
-                    WebView(
-                        state = state,
-                        modifier = Modifier
-                            .fillMaxSize(),
-                        navigator = navigator,
-                        onCreated = { webView ->
-                            webView.settings.javaScriptEnabled = true
-                        },
-                        client = webClient
-                    )
+                        WebView(
+                            state = state,
+                            modifier = Modifier
+                                .fillMaxSize(),
+                            navigator = navigator,
+                            onCreated = { webView ->
+                                webView.settings.javaScriptEnabled = true
+                            },
+                            client = webClient
+                        )
+                    }
                 }
             }
         }
