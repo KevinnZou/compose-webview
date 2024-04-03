@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.kevinnzou.webview.sample.WebViewSaveStateSample
 import com.kevinnzou.webview.sample.BasicWebViewSample
+import com.kevinnzou.webview.sample.PullToRefreshWebViewSample
 import com.kevinnzou.webview.ui.theme.ComposewebviewTheme
 
 class MainActivity : ComponentActivity() {
@@ -53,6 +54,16 @@ class MainActivity : ComponentActivity() {
                                 )
                             }) {
                                 Text("Save State")
+                            }
+                            Button(onClick = {
+                                startActivity(
+                                    Intent(
+                                        this@MainActivity,
+                                        PullToRefreshWebViewSample::class.java
+                                    )
+                                )
+                            }) {
+                                Text("Pull to Refresh")
                             }
                         }
                     }
