@@ -144,7 +144,6 @@ class BasicWebViewSample : ComponentActivity() {
                             }
                         }
                     }
-
                     WebView(
                         state = state,
                         modifier = Modifier

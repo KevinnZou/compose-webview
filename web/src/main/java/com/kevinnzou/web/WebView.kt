@@ -19,7 +19,7 @@
 package com.kevinnzou.web
 
 import android.content.Context
-import android.view.ViewGroup.LayoutParams
+import android.view.ViewGroup
 import android.webkit.WebView
 import android.widget.FrameLayout
 import androidx.activity.compose.BackHandler
@@ -57,7 +57,7 @@ import androidx.compose.ui.viewinterop.AndroidView
  * @sample com.google.accompanist.sample.webview.BasicWebViewSample
  */
 @Composable
-public fun WebView(
+fun WebView(
     state: WebViewState,
     modifier: Modifier = Modifier,
     captureBackPresses: Boolean = true,
@@ -74,20 +74,19 @@ public fun WebView(
         // layout params here.
         val width =
             if (constraints.hasFixedWidth)
-                LayoutParams.MATCH_PARENT
+                ViewGroup.LayoutParams.MATCH_PARENT
             else
-                LayoutParams.WRAP_CONTENT
+                ViewGroup.LayoutParams.WRAP_CONTENT
         val height =
             if (constraints.hasFixedHeight)
-                LayoutParams.MATCH_PARENT
+                ViewGroup.LayoutParams.MATCH_PARENT
             else
-                LayoutParams.WRAP_CONTENT
+                ViewGroup.LayoutParams.WRAP_CONTENT
 
         val layoutParams = FrameLayout.LayoutParams(
             width,
             height
         )
-
         WebView(
             state,
             layoutParams,
@@ -129,7 +128,7 @@ public fun WebView(
  * @param factory An optional WebView factory for using a custom subclass of WebView
  */
 @Composable
-public fun WebView(
+fun WebView(
     state: WebViewState,
     layoutParams: FrameLayout.LayoutParams,
     modifier: Modifier = Modifier,
@@ -146,7 +145,6 @@ public fun WebView(
     BackHandler(captureBackPresses && navigator.canGoBack) {
         webView?.goBack()
     }
-
     webView?.let { wv ->
         LaunchedEffect(wv, navigator) {
             with(navigator) {
@@ -155,6 +153,7 @@ public fun WebView(
         }
 
         LaunchedEffect(wv, state) {
+
             snapshotFlow { state.content }.collect { content ->
                 when (content) {
                     is WebContent.Url -> {
@@ -201,13 +200,10 @@ public fun WebView(
         factory = { context ->
             (factory?.invoke(context) ?: WebView(context)).apply {
                 onCreated(this)
-
                 this.layoutParams = layoutParams
-
                 state.viewState?.let {
                     this.restoreState(it)
                 }
-
                 webChromeClient = chromeClient
                 webViewClient = client
             }.also { state.webView = it }
@@ -218,3 +214,6 @@ public fun WebView(
         }
     )
 }
+
+
+
