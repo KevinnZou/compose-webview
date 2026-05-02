@@ -1,5 +1,6 @@
 package com.kevinnzou.web
 
+import android.webkit.ValueCallback
 import android.webkit.WebView
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
@@ -63,6 +64,11 @@ public class WebViewNavigator(private val coroutineScope: CoroutineScope) {
                 return result
             }
         }
+
+        data class EvaluateJavaScript(
+            val script: String,
+            val callback: ((String) -> Unit)?
+        ) : NavigationEvent
     }
 
     private val navigationEvents: MutableSharedFlow<NavigationEvent> = MutableSharedFlow(replay = 1)
@@ -89,6 +95,13 @@ public class WebViewNavigator(private val coroutineScope: CoroutineScope) {
 
                 is NavigationEvent.PostUrl -> {
                     postUrl(event.url, event.postData)
+                }
+
+                is NavigationEvent.EvaluateJavaScript -> {
+                    val cb = event.callback
+                    val valueCallback: ValueCallback<String>? =
+                        if (cb == null) null else ValueCallback { value -> cb(value ?: "") }
+                    evaluateJavascript(event.script, valueCallback)
                 }
 
                 else -> {}
@@ -148,6 +161,26 @@ public class WebViewNavigator(private val coroutineScope: CoroutineScope) {
                 NavigationEvent.PostUrl(
                     url,
                     postData
+                )
+            )
+        }
+    }
+
+    /**
+     * Evaluates the given JavaScript in the context of the currently displayed page.
+     *
+     * @param script The JavaScript to evaluate.
+     * @param callback Optional callback invoked with the evaluation result on the UI thread.
+     */
+    public fun evaluateJavaScript(
+        script: String,
+        callback: ((String) -> Unit)? = null
+    ) {
+        coroutineScope.launch {
+            navigationEvents.emit(
+                NavigationEvent.EvaluateJavaScript(
+                    script,
+                    callback
                 )
             )
         }
